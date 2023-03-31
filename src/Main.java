@@ -1,10 +1,13 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 	private static Scanner scanner = new Scanner(System.in);
     private static User  currentUser;
     private static ArrayList<User> users = new ArrayList<User>();
+    private static ArrayList<ABook> books = new ArrayList<ABook>();
+   //Kitap 10
 
 	public static void main(String[] args) {
 		
@@ -37,8 +40,14 @@ public class Main {
 		printedBook printedbook9 = new printedBook("The Lord of the Rings", 1178, "J.R.R. Tolkien", 1954, "Houghton Mifflin", 24.99, BookTypes.FANTASY, 345678, true);
 		
 		eBook ebook10 = new eBook("Pride and Prejudice", 432, "Jane Austen", 1813, "Project Gutenberg", 1.99, BookTypes.ROMANCE, 4.7);
-		printedBook printedbook = new printedBook("Pride and Prejudice", 432, "Jane Austen", 1813, "Penguin Classics", 12.99, BookTypes.ROMANCE, 567890, false);
-				
+		printedBook printedbook10 = new printedBook("Pride and Prejudice", 432, "Jane Austen", 1813, "Penguin Classics", 12.99, BookTypes.ROMANCE, 567890, false);
+			
+	
+		books.addAll(Arrays.asList(ebook1, ebook2, ebook3, ebook4, ebook5, ebook6, ebook7, ebook8, ebook9, ebook10, 
+				printedbook1, printedbook2, printedbook3, printedbook4, printedbook5, printedbook6, printedbook7, printedbook8, printedbook9, printedbook10));
+
+		
+		
 		
 		boolean isExit = true;
 		
@@ -77,9 +86,9 @@ public class Main {
                     break;
                 case 2:
                     if (currentUser == null) {
-                   	 login(currentUser);
+                        currentUser = login();
                     } else {
-                     addToBasket();
+                        addToBasket();
                     }
                     break;
                 case 3:
@@ -94,7 +103,7 @@ public class Main {
 		}
 	}
 	}
-    public static void login(User currentUser) {
+    public static User login() {
     	
     	System.out.println("Please enter your username: ");
         String usernameString =  scanner.nextLine();
@@ -109,13 +118,15 @@ public class Main {
         for(User user : users ) {
         	if(usernameString.equals(user.getUsername()) && passwordString.equals(user.getPassword())) {
         		System.out.println("Successful entered");
-        		currentUser = user;
+        		System.out.println();
+        		return user;
         	}
         	else {
         		System.out.println("Incorret passord or username");
         	}
         }	 
     }
+        return null;
     }
     public static void createUser(ArrayList<User> users) {
     	System.out.println("Please enter your username: ");
@@ -127,15 +138,46 @@ public class Main {
         User user1  = new User(usernameString, passwordString, emailString);
         users.add(user1);
     }
+    
     public static void  searchBook() {
     	
+    	boolean isFound = true;
+    	
+    	System.out.println("Enter the name of the book/author you are looking for: ");
+    	String searchingBook = scanner.nextLine();
+    	
+    	for(ABook book : books) {
+        	if(searchingBook.equalsIgnoreCase(book.getName()) || searchingBook.equalsIgnoreCase(book.getAuthor())) {
+        		
+        	isFound = false;
+        	
+        		if(book.isPrinted())
+        			System.out.println(book.getAuthor() + "'s " + book.getName() + " named book found");
+
+        		else 
+					System.out.println(book.getAuthor() + "'s " + book.getName() + " named e-book found");	
+    	}  
+    	}
+    	
+    	System.out.println();
+    	
+    	if(isFound) {
+			System.out.println(searchingBook + "named book not found.");
+		}
+	
     }
+    
+    
     public static void  addToBasket() {
+    	
+    	
+    	
     	
     }
     public static void  checkout() {
     	
     }    
 		
+    
 
 }

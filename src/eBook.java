@@ -5,8 +5,9 @@ public class eBook extends ABook{
 	
 	
 	public eBook(String name, int pageNumber, String author, int year, String publisher, double price, BookTypes booktype, double fileSize) {
-		super(name, pageNumber, author, year, publisher, price, booktype);
+		super(name, pageNumber, author, year, publisher, price, booktype, false);
 		this.fileSize = fileSize;
+	;
 		
 	}
 
